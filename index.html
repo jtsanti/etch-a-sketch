@@ -5,18 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch a Sketch</title>
+    <link rel="stylesheet" href="src/styles/main.css">
     <style></style>
 </head>
 <body>
     <h1>Etch-A-Sketch!</h1>
     <p>Click one of the buttons below to choose your grid size. Once selected, hover your mouse over the grid to draw whatever you'd like!</p>
+    <p>Please note that each pass over a cell will remove some of the color. After 10 passes, the cell will be completely black.</p>
     <p>If you want to reset your Etch-A-Sketch at any time, click the CLEAR button</p>
     <div class="btn_container">
-        <button class="btn">16</button>
-        <button class="btn">32</button>
-        <button class="btn">64</button>
-        <button class="btn">100</button>
-        <button class="btn">CLEAR</button>
+        <button class="btn grid-btn">16</button>
+        <button class="btn grid-btn">32</button>
+        <button class="btn grid-btn">64</button>
+        <button class="btn grid-btn">100</button>
+        <button id="clear" class="btn">CLEAR</button>
     </div>
     <div id="grid"></div>
 

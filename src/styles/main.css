@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    background-color: #adbac7;
+}
+h1 {
+    background-color: #000;
+    color: #fcd303;
+    padding: 40px;
+    margin: 0;
+    text-align: center;
+}
+p, .btn_container {
+    text-align: center;
+}
+.btn {
+    padding: 5px;
+    margin: 0 10px;
+    background-color: #fca103;
+}
+.grid-container {
+    display: grid;
+    justify-content: center;
+    margin: 10px auto;
+    border: 3px solid #000;
+}
+
+.grid-cell {
+    background-color: #fff;
+    filter: brightness(1);
+}
