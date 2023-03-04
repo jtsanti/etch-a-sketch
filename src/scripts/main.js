@@ -24,7 +24,13 @@ function changeCellColor(event) {
 
     if (event.target.style.backgroundColor === '' || event.target.style.backgroundColor === '#fff') {
         event.target.style.backgroundColor = randColor;
-    } 
+    } else {
+        let cell = window.getComputedStyle(event.target).getPropertyValue('filter');
+        let regex = /\((.*?)\)/;
+        let brightness = cell.match(regex);
+
+        event.target.style.filter = `brightness(${brightness[1] - 0.1})`;
+    }
 }
 
 function buildGrid(grid) { 
