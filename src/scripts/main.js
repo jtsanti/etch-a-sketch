@@ -1,64 +1,72 @@
 "use strict"
 
-function addStyles(grid) {
+function styleGrid(grid) {
     const maxGridSize = 500;
     const gridCellSize = maxGridSize / grid;
 
     document.querySelector('style').innerHTML = `
-        body {
-            margin: 0;
-            background-color: #adbac7;
-        }
-        h1 {
-            background-color: #000;
-            color: #fcd303;
-            padding: 40px;
-            margin: 0;
-            text-align: center;
-        }
-        p, .btn_container {
-            text-align: center;
-        }
-        .btn {
-            padding: 5px;
-            margin: 0 10px;
-            background-color: #fca103;
-        }
-        .grid_container {
-            display: grid;
-            justify-content: center;
-            margin: 10px auto;
+        .grid-container {
             max-width: ${maxGridSize}px;
             grid-template-columns: repeat(${grid}, ${gridCellSize}px);
-            border: 3px solid #000;
-            background-color: #fff;
+            grid-template-rows: repeat(${grid}, ${gridCellSize}px);
         }
         
-        .grid_cell {
+        .grid-cell {
             width: ${gridCellSize}px;
             height: ${gridCellSize}px;
         }
     `;
 }
 
-function setUpGrid(grid) {
-    addStyles(grid);
-    
+function changeCellColor(event) {
+    // creates a random color
+    const randColor =  '#' + (Math.random() * 0xfffff * 1000000).toString(16).slice(0,6);
+
+    if (event.target.style.backgroundColor === '' || event.target.style.backgroundColor === '#fff') {
+        event.target.style.backgroundColor = randColor;
+    } 
+}
+
+function buildGrid(grid) { 
     const gridDiv = document.getElementById('grid');
     const containerDiv = document.createElement('div');
+    const gridExists = document.querySelector('.grid-container');
 
-    gridDiv.appendChild(containerDiv).className = 'grid_container';
-    grid *= grid; // sets up the total number of cells needed
+    if (gridExists) {
+        gridDiv.removeChild(gridExists);
+    }
 
-    for (let i = 0; i < grid; i++) {
+    styleGrid(grid);
+
+    gridDiv.appendChild(containerDiv).className = 'grid-container';
+
+    for (let i = 0; i < (grid * grid); i++) {
         let gridCell = document.createElement('div');
-        gridCell.addEventListener('mouseover', (event) => {
-            event.target.style.backgroundColor = 'red';
-        })
+        
+        gridCell.addEventListener('mouseover', (e) => changeCellColor(e));
 
-        containerDiv.appendChild(gridCell).className = 'grid_cell';
+        containerDiv.appendChild(gridCell).className = 'grid-cell';
     }
 }
 
-setUpGrid(50);
+function setUpPage() {
+    const gridButtons = document.querySelectorAll('.grid-btn');
+    const clearButton = document.getElementById('clear');
 
+    gridButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            buildGrid(btn.textContent)
+        });
+    });
+
+    clearButton.addEventListener('click', () => {
+        const gridCells = document.querySelectorAll('.grid-cell');
+
+        gridCells.forEach(cell => {
+            cell.style.backgroundColor = '';
+            cell.style.filter = 'brightness(1)';
+        });
+    });
+}
+
+setUpPage();
